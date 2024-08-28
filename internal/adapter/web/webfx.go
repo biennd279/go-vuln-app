@@ -23,6 +23,7 @@ type GinAdapter interface {
 var Module = fx.Module("web-adapter",
 	fx.Provide(
 		AsGinAdapter(NewHealthAdapter),
+		AsGinAdapter(NewCommandInjectionAdapter),
 		fx.Annotate(NewRoutes,
 			fx.ParamTags(AdapterTag),
 		),
