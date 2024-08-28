@@ -1,0 +1,38 @@
+name: Running unittest
+run-name: Run ${{ gitea.actor }}
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - 'releases/**'
+      - 'feature-**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.22.x' ]
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+          check-latest: true
+          cache-dependency-path: |
+            go.sum
+
+      - name: Display Go version
+        run: go version
+
+      - name: Install dependencies
+        run: go mod download
+
+
+      - name: Test with Go
+        run: go test ./...
