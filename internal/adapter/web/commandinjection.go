@@ -47,6 +47,28 @@ func (a *CommandInjectionAdapter) nonVulnerableCommand(c *gin.Context) {
 	c.JSON(200, gin.H{"output": out})
 }
 
+func (a *CommandInjectionAdapter) vulnerableCommandViaStruct(c *gin.Context) {
+	command := c.Query("command")
+	params := c.QueryArray("params")
+
+	out, _ := a.service.VulnerableCommandViaStruct(port.CommandStruct{
+		Command: command,
+		Args:    params,
+	})
+	c.JSON(200, gin.H{"output": out})
+}
+
+func (a *CommandInjectionAdapter) vulnerableCommandViaInterface(c *gin.Context) {
+	command := c.Query("command")
+	params := c.QueryArray("params")
+
+	out, _ := a.service.VulnerableCommandViaInterface(&port.CommandStruct{
+		Command: command,
+		Args:    params,
+	})
+	c.JSON(200, gin.H{"output": out})
+}
+
 func (a *CommandInjectionAdapter) RegisterRoutes(rg *gin.RouterGroup) {
 	commandInjection := rg.Group("/command-injection")
 	{
@@ -54,5 +76,7 @@ func (a *CommandInjectionAdapter) RegisterRoutes(rg *gin.RouterGroup) {
 		commandInjection.GET("/context", a.vulnerableContextCommand)
 		commandInjection.GET("/shell", a.vulnerableCommandWithShell)
 		commandInjection.GET("/non-vulnerable", a.nonVulnerableCommand)
+		commandInjection.GET("/struct", a.vulnerableCommandViaStruct)
+		commandInjection.GET("/interface", a.vulnerableCommandViaInterface)
 	}
 }

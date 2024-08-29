@@ -28,6 +28,16 @@ func (s *service) NonVulnerableCommand(_ string, params []string) (string, error
 	return string(out), nil
 }
 
+func (s *service) VulnerableCommandViaStruct(command port.CommandStruct) (string, error) {
+	out, _ := exec.Command(command.Command, command.Args...).Output()
+	return string(out), nil
+}
+
+func (s *service) VulnerableCommandViaInterface(command port.CommandInterface) (string, error) {
+	out, _ := exec.Command(command.GetCommand(), command.GetArgs()...).Output()
+	return string(out), nil
+}
+
 func NewCommandInjectionService() port.CommandInjectionService {
 	return &service{}
 }
