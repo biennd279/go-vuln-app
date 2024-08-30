@@ -27,4 +27,6 @@ type CommandInjectionService interface {
 	NonVulnerableCommand(command string, params []string) (string, error)
 	VulnerableCommandViaStruct(command CommandStruct) (string, error)
 	VulnerableCommandViaInterface(command CommandInterface) (string, error)
+	VulnerableCommandTaint(command string, params []string) (string, error)
+	VulnerableCommandTaintViaStruct(command string, params []string) (string, error)
 }

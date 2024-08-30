@@ -38,6 +38,21 @@ func (s *service) VulnerableCommandViaInterface(command port.CommandInterface) (
 	return string(out), nil
 }
 
+func (s *service) VulnerableCommandTaint(command string, params []string) (string, error) {
+	commandX := DoNothing(command)
+	out, _ := exec.Command(commandX, params...).Output()
+	return string(out), nil
+}
+
+func (s *service) VulnerableCommandTaintViaStruct(command string, params []string) (string, error) {
+	commandY := port.CommandStruct{
+		Command: command,
+		Args:    params,
+	}
+	out, _ := exec.Command(commandY.GetCommand(), commandY.GetArgs()...).Output()
+	return string(out), nil
+}
+
 func NewCommandInjectionService() port.CommandInjectionService {
 	return &service{}
 }
