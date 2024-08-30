@@ -1,12 +1,12 @@
-// Package http_mux internal/adapter/http_mux/httpfx.go
-package http_mux
+// Package web_mux internal/adapter/web_mux/httpfx.go
+package web_mux
 
 import (
 	"github.com/gorilla/mux"
 	"go.uber.org/fx"
 )
 
-var Module = fx.Module("http_mux",
+var Module = fx.Module("web_mux",
 	fx.Provide(
 		NewCommandInjectionAdapter,
 		NewHttpApplication,

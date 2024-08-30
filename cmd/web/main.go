@@ -2,9 +2,9 @@ package main
 
 import (
 	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/adapter/config"
-	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/adapter/http_mux"
 	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/adapter/repository"
 	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/adapter/web"
+	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/adapter/web_mux"
 	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/core/service"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
@@ -22,7 +22,7 @@ func main() {
 		repository.Module,
 		service.Module,
 		web.Module,
-		http_mux.Module,
+		web_mux.Module,
 
 		fx.Provide(
 			zap.NewExample,

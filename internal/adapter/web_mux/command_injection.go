@@ -1,5 +1,5 @@
-// Package http_mux internal/adapter/http_mux/command_injection.go
-package http_mux
+// Package web_mux internal/adapter/web_mux/command_injection.go
+package web_mux
 
 import (
 	"gitea.homelab.d3s34.me/d3s34/vuln-app/internal/core/port"
